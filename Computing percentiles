@@ -1,0 +1,27 @@
+public class CoffeeSalesExample {
+    private record CoffeeSales(LocalDate date, String coffeeName,
+            String paymentMethod, int quantity, double amount) {
+    }
+
+    public static void main(String[] args) {
+        List<CoffeeSales> sales = Arrays.asList(
+                new CoffeeSales(LocalDate.of(2024, 3, 1), "Latte", "cash", 1, 6.26),
+                new CoffeeSales(LocalDate.of(2024, 3, 5), "Hot Chocolate", "card", 3, 32.51),
+                new CoffeeSales(LocalDate.of(2024, 3, 6), "Americano", "card", 2, 18.70));
+
+        DescriptiveStatistics stats = new DescriptiveStatistics();
+        sales.forEach(sale -> stats.addValue(sale.amount()));
+
+        System.out.printf("\nSales analyzed: %d%n", sales.size());
+        System.out.printf("Average amount: $%.2f%n", stats.getMean());
+        System.out.printf("Amount range: $%.2f - $%.2f%n",
+                stats.getMin(), stats.getMax());
+	    
+        // Compute the median transaction amount
+        System.out.printf("Median amount: $%.2f%n", stats.getPercentile(50));
+        
+        // Compute the 25th and 75th percentiles of the amounts
+        System.out.printf("Normal range: $%.2f - $%.2f%n",
+                stats.getPercentile(25), stats.getPercentile(75));
+    }
+}
