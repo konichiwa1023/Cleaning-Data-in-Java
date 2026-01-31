@@ -1,0 +1,23 @@
+public class CoffeeSalesExample {
+    private record CoffeeSales(LocalDate date, String coffeeName,
+            String paymentMethod, Integer quantity, Double amount) {
+    }
+
+    public static void main(String[] args) {
+		CoffeeSales sale = new CoffeeSales(LocalDate.of(2024, 3, 1), "Latte", "cash", null, null);
+
+		// Check if the sale quantity is null
+        if (Objects.isNull(sale.quantity())) {
+            System.out.println("Missing quantity");
+        }
+    	
+        // Check if the sale amount is null
+        if (Objects.isNull(sale.amount())) {
+        	System.out.println("Missing amount");
+        }
+    	
+        // Set a default value of 1 for sale quantity
+        int defaultQuantity = Optional.ofNullable(sale.quantity()).orElse(1);
+        System.out.println("Default quantity: " + defaultQuantity);
+    }
+}
