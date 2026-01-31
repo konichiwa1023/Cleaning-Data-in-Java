@@ -1,0 +1,18 @@
+public class CoffeeSalesExample {
+    private record CoffeeSales(LocalDate date, String coffeeName,
+            String paymentMethod, Integer quantity, Double amount) {
+    }
+
+    public static void main(String[] args) {
+		CoffeeSales sale = new CoffeeSales(LocalDate.of(2024, 3, 1), null, " ", 1, 6.26);
+
+		// Return coffeeName with a default if null
+		String coffeeName = Objects.toString(sale.coffeeName(), "[No coffee name]");
+		System.out.println("coffeeName: " + coffeeName);
+
+        // Check if paymentMethod is empty or whitespace
+        if (StringUtils.isBlank(sale.paymentMethod())) {
+            System.out.println("Payment method cannot be empty or whitespace");
+        }
+    }
+}
