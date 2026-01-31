@@ -1,0 +1,25 @@
+public class CoffeeSalesExample {
+    private static LocalDate parseDate(String dateStr) {
+        // Specify the date format for the data
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("M/d/yy");
+        return LocalDate.parse(dateStr, format);
+    }
+    
+    private static double parseAmount(String amount) {
+        // Parse the amount as a Double
+        return Double.parseDouble(amount.replace("$", "").trim());
+    }
+
+    public static void main(String[] args) {        
+        LocalDate date = parseDate("1/10/23");
+        System.out.println("Date: " + date);
+        
+        String amount = "$30.61";
+        // Check if the amount can be parsed as a number
+        boolean isAmountParsable = NumberUtils.isParsable(amount);
+        System.out.println("Is amount parsable? " + isAmountParsable);
+        
+        Double parsedAmount = parseAmount(amount);
+        System.out.println("parsedAmount: " + parsedAmount);
+    }
+}
