@@ -1,0 +1,43 @@
+public class CoffeeSalesExample {
+    private record CoffeeSales(LocalDate date, String coffeeName, String paymentMethod, Integer quantity, Double amount) {}
+
+    private static LocalDate parseDate(String dateStr) {
+    	// Parse the format of the date string
+        return LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("M/d/yy"));
+    }
+
+    private static String validateNumeric(String value) {
+        if (NumberUtils.isParsable(value)) return value;
+        throw new IllegalArgumentException("Invalid: " + value);
+    }
+    
+    public static double parsePrice(String priceText) {
+        if (NumberUtils.isParsable(priceText.replace("$", ""))) {
+            return Double.parseDouble(priceText.replace("$", ""));
+        }
+        throw new IllegalArgumentException("Invalid price: " + priceText);
+    }
+
+    public static CoffeeSales parseSalesData(String[] fields) {
+        LocalDate publishDate = parseDate(fields[0]);
+        String coffeeName = fields[1];
+        String paymentMethod = fields[2];
+        // Read quantity as an Integer
+        Integer quantity = Integer.parseInt(validateNumeric(fields[3]));
+        Double amount = parsePrice(fields[4]);
+        return new CoffeeSales(publishDate, coffeeName, paymentMethod, quantity, amount);
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        List<CoffeeSales> sales = new ArrayList<>();
+        String filename = "coffee.csv";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line = reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                sales.add(parseSalesData(fields));
+            }
+        }
+        sales.forEach(System.out::println);
+    }
+}
