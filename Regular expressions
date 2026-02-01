@@ -1,0 +1,12 @@
+public class ProductDataExample {
+	public static void main(String[] args) {
+    	String messyProduct = "Headphones *(Wireless)*";
+        
+        // Try using a character class to specify letters and spaces
+            String regex = "[^a-zA-Z\\s]";
+        
+        // Remove any character that is not a letter or space
+        String cleanedProduct = messyProduct.replaceAll(regex, "");
+        System.out.println(cleanedProduct);
+    }
+}
