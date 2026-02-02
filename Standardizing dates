@@ -1,0 +1,26 @@
+public class DateStandardizationExample {
+    public static void main(String[] args) {
+    	String[] dates = { "3/1/25", "04-01-2025", "2025.06.01" };
+        // Specify the input date formats
+        DateTimeFormatter[] formatters = {
+            DateTimeFormatter.ofPattern("M/d/yy"),
+            DateTimeFormatter.ofPattern("MM-dd-yyyy"),
+            DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        };
+
+        System.out.println("Standardized manufacturing dates:");
+        for (int i = 0; i < dates.length; i++) {
+        	// Parse each string in dates as a date
+            LocalDate productDate = LocalDate.parse(dates[i], formatters[i]);
+            System.out.println("Date " + dates[i] + " is standardized as " + productDate);
+        }
+
+        LocalDate manufacturingDate = LocalDate.parse("2023-01-01");
+        // Display date as full month name, day without leading zeros, and full year
+        DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+
+        String formattedDate = manufacturingDate.format(displayFormat);
+        
+        System.out.println("\nFormatted manufacturing date: " + formattedDate);
+    }
+}
