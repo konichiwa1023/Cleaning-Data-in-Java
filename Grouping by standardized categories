@@ -1,0 +1,36 @@
+public class ElectronicsCategoryExample {
+    public enum ProductCategory {
+        ELECTRONICS,
+        HOME_APPLIANCES,
+        UNCATEGORIZED;
+    }
+
+    public static void main(String[] args) {
+    	Map<String, ProductCategory> categoryMap = new HashMap<>();
+        categoryMap.put("Home Appliances", ProductCategory.HOME_APPLIANCES);
+        categoryMap.put("home appliances", ProductCategory.HOME_APPLIANCES);
+        categoryMap.put("HomeAppliances", ProductCategory.HOME_APPLIANCES);
+        categoryMap.put("Electronics", ProductCategory.ELECTRONICS);
+        categoryMap.put("electronics", ProductCategory.ELECTRONICS);
+        categoryMap.put("Electronic", ProductCategory.ELECTRONICS);
+        
+        Map<String, Integer> rawData = Map.of(
+                "Home Appliances", 50,
+                "home appliances", 25,
+                "HomeAppliances", 15,
+                "Electronics", 30,
+                "electronics", 20,
+                "Electronic", 10);
+
+        // Define an enum map to store the quantity of each ProductCategory
+        Map<ProductCategory, Integer> stockByCategory = new EnumMap<>(ProductCategory.class);
+
+
+        // Merge the quantities into category sums
+        rawData.forEach((raw, quantity) -> stockByCategory.merge(categoryMap.get(raw), quantity, Integer::sum));
+
+
+		System.out.println("Stock by category:");
+        System.out.println(stockByCategory);
+    }
+}
