@@ -1,0 +1,38 @@
+public class ElectronicsCategoryExample {
+	// Create an enum called ProductCategory
+    public enum ProductCategory {
+    ELECTRONICS,
+    HOME_APPLIANCES,
+    UNCATEGORIZED;
+     }
+
+    public static void main(String[] args) {
+    	Map<String, ProductCategory> categoryMap = new HashMap<>();
+        categoryMap.put("Home Appliances", ProductCategory.HOME_APPLIANCES);
+        categoryMap.put("home appliances", ProductCategory.HOME_APPLIANCES);
+        categoryMap.put("HomeAppliances", ProductCategory.HOME_APPLIANCES);
+        categoryMap.put("Electronics", ProductCategory.ELECTRONICS);
+        categoryMap.put("electronics", ProductCategory.ELECTRONICS);
+        categoryMap.put("Electronic", ProductCategory.ELECTRONICS);
+        
+        System.out.println("Electronics category:");
+        System.out.println(categoryMap.get("Electronics"));
+        
+        // Look up an unknown category
+        ProductCategory unknownCategory = categoryMap.getOrDefault(
+    			"Mystery category", ProductCategory.UNCATEGORIZED);
+                
+        System.out.println("\nMystery category:");
+        System.out.println(unknownCategory);
+        
+        // Create an unmodifiable map
+        Map<String, ProductCategory> immutableMap = Collections.unmodifiableMap(categoryMap);
+        
+        System.out.println("\nAttempting to modify immutable map:");
+        try {
+            immutableMap.put("new", ProductCategory.ELECTRONICS);
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Cannot modify immutable map");
+        }
+    }
+}
