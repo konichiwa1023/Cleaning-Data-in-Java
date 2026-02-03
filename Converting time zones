@@ -1,0 +1,13 @@
+public class DateStandardizationExample {
+    public static void main(String[] args) {
+        LocalDate date = LocalDate.parse("2023-01-01");
+        
+        // Convert the date to the New York time zone at the start of day
+        ZonedDateTime nyTime = date.atStartOfDay(ZoneId.of("America/New_York"));
+        // Convert the New York time to Los Angeles time
+        ZonedDateTime laTime = nyTime.withZoneSameInstant(ZoneId.of("America/Los_Angeles"));
+        
+        System.out.println("New York time: " + nyTime);
+		System.out.println("Los Angeles time: " + laTime);
+    }
+}
