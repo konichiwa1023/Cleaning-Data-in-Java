@@ -1,0 +1,18 @@
+public class ProductDataExample {
+	public static void main(String[] args) {
+    	String[] messyProducts = {
+            "Laptop ", "SMARTPHONE", 
+            "Monitor *(Display)*", "   Bluetooth    Speaker   "
+        };
+
+        Arrays.stream(messyProducts)
+              // Remove leading and trailing spaces
+              .map(s -> s.trim()
+                     .replaceAll("[^a-zA-Z\\s]", "")
+                     // Replace multiple spaces with a single space
+                     .replaceAll("____", " ")
+                     // Convert to lowercase
+                     .toLowerCase())
+              .forEach(System.out::println);
+    }
+}
