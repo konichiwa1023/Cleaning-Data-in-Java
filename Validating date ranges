@@ -1,0 +1,18 @@
+public class RangeValidation {
+    public static void main(String[] args) {
+        List<String> releaseDates = Arrays.asList("11/19/2006", "11/13/1985", "4/10/2008");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate startDate = LocalDate.of(1985, 1, 1);
+        LocalDate endDate = LocalDate.of(2024, 12, 31);
+
+        for (String dateStr : releaseDates) {
+            LocalDate releaseDate = LocalDate.parse(dateStr, formatter);
+            // Check that the release date occurs after startDate
+            boolean isValid = releaseDate.isAfter(startDate)
+                    // Verify that the release date is before endDate
+                    && releaseDate.isBefore(endDate);
+            System.out.println(dateStr + " is valid: " + isValid);
+        }
+    }
+}
