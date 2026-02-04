@@ -1,0 +1,27 @@
+ public class RangeValidation {
+    public static void main(String[] args) {
+        List<Double> quantities = Arrays.asList(41.49, 29.08, 15.85);
+
+        // Get the minimum and maximum quantities
+        Double minQuantity = Collections.min(quantities);
+        Double maxQuantity = Collections.max(quantities);
+
+        System.out.println("Quantity range: " + minQuantity + " - " + maxQuantity);
+
+        // Define ranges for low and high quantities
+        Range<Double> lowQuantities = Range.between(0.0, 25.0);
+        Range<Double> highQuantities = Range.between(25.0, 50.0);
+
+        for (Double quantity : quantities) {
+            // Check if the quantity is low
+            if (lowQuantities.contains(quantity)) {
+                System.out.println(quantity + " - Low quantity");
+            // Check if the quantity is high
+            } else if (highQuantities.contains(quantity)) {
+                System.out.println(quantity + " - High quantity");
+            } else {
+                System.out.println(quantity + " - Out of expected range");
+            }
+        }
+    }
+}
