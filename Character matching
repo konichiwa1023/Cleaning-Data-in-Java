@@ -1,0 +1,18 @@
+public class PatternValidation {
+    public static void main(String[] args) {
+        List<String> quantities = Arrays.asList("41.49", "29.08", "15.85", "12.5x");
+
+        for (String quantity : quantities) {
+            // Check if quantity contains any digits
+            boolean hasDigits = CharMatcher.inRange('0', '9').matchesAnyOf(quantity);
+            // Look for decimal separator in quantity
+            boolean hasDecimal = CharMatcher.is('.').matchesAnyOf(quantity);
+            // Detect any alphabetic characters in quantity
+            boolean hasInvalidChars = CharMatcher.inRange('a', 'z')
+                    .or(CharMatcher.inRange('A', 'Z')).matchesAnyOf(quantity);
+
+            boolean isValid = hasDigits && hasDecimal && !hasInvalidChars;
+            System.out.println(quantity + " has valid characters: " + isValid);
+        }
+    }
+}
