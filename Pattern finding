@@ -1,0 +1,17 @@
+public class PatternValidation {
+    public static void main(String[] args) {
+        List<String> platforms = Arrays.asList("PlayStation 5", "PlayStation 4", "Xbox One", "Switch");
+        Pattern versionPattern = Pattern.compile("\\d");  // Match single digit versions
+
+        for (String platform : platforms) {
+            Matcher matcher = versionPattern.matcher(platform);
+            // Check if the matcher finds any version number
+            if (matcher.find()) {
+                // Report the version number that the matcher finds
+                System.out.println(platform + ": version " + matcher.group());
+            } else {
+                System.out.println(platform + ": no version number");
+            }
+        }
+    }
+}
