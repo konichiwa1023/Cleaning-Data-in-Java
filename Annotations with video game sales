@@ -1,0 +1,21 @@
+public class VideoGameSale {
+    // Check that name is not empty
+    @NotEmpty(message = "Name cannot be empty")
+    private String name;
+
+    // Check that platform is not empty
+    @NotEmpty(message = "Platform cannot be empty")
+    private String platform;
+
+    // Check that year is at least 1960
+    @Min(value = 1960, message = "Year must be greater than 1960")
+    private Integer year;
+
+    // Check that sales is positive
+    @Min(value = 1, message = "Sales amount must be positive")
+    private Double sales;
+    
+    public static void main(String[] args) {
+        System.out.println("Nice job setting up the annotations!");
+    }
+}
