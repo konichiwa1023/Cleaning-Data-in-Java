@@ -1,0 +1,14 @@
+public class PatternValidation {
+    public static void main(String[] args) {
+        List<String> dates = Arrays.asList("11/19/2006", "11/13/1985", "4/10/2008", "2008-04-10");
+        // Define a regex pattern to match the date format
+        Pattern datePattern = Pattern.compile("\\d{1,2}/\\d{1,2}/\\d{4}");
+
+
+        for (String date : dates) {
+            // Check if entire date string matches datePattern
+            boolean isValid = datePattern.matcher(date).matches();
+            System.out.println(date + " is valid: " + isValid);
+        }
+    }
+}
