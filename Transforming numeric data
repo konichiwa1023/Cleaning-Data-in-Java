@@ -1,0 +1,25 @@
+public class GroceryDataTransformation {
+    public static void main(String[] args) {
+        Table inventory = Table.read().csv("grocery_inventory.csv");
+
+        System.out.println("Column datatypes:");
+        for (String columnName : inventory.columnNames()) {
+            // Print the data type of each column
+            System.out.println(columnName + ": " + inventory.column(columnName).type());
+
+        }
+
+        // Convert the integer column to a double column
+        DoubleColumn quantity = inventory.intColumn("Stock_Quantity").asDoubleColumn();
+        DoubleColumn unitPrice = inventory.doubleColumn("Unit_Price");
+
+        // Multiply the quantity by the unit price
+        DoubleColumn totalValue = quantity.multiply(unitPrice)
+                .setName("Total_Value");
+        inventory.addColumns(totalValue);
+
+        System.out.println("\nMultiplying two columns: Stock_Quantity * Unit_Price = Total_Value");
+        System.out.println(inventory.selectColumns("Product_Name", "Stock_Quantity", "Unit_Price", "Total_Value")
+                .first(4).print());
+            }
+}
