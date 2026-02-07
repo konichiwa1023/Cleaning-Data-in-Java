@@ -1,0 +1,18 @@
+public class GroceryDataQuality {
+    public static void main(String[] args) {
+        Table inventory = Table.read().csv("grocery_inventory.csv");
+
+        // Extract the unit price column
+        DoubleColumn price = inventory.doubleColumn("Unit_Price");
+        System.out.println("Stock Quantity Statistics:");
+
+        // Compute the min and max of unit price
+        System.out.println("Min: " + price.min());
+        System.out.println("Max: " + price.max());
+
+        // Compute the mean and standard deviation of the unit price
+        System.out.println("Mean: " + price.mean());
+        System.out.println("Standard deviation: " + price.standardDeviation());
+    }
+}
+v
