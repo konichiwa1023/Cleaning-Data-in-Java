@@ -1,0 +1,18 @@
+public class GroceryDataFiltering {
+    public static void main(String[] args) {
+        Table inventory = Table.read().csv("grocery_inventory.csv");
+
+        // Check if the integer column is greater than 50
+        Selection highQuantity = inventory.intColumn("Stock_Quantity").isGreaterThan(50);
+        // Check if the string column is equal to Fruits & Vegetables
+        Selection fruitsAndVegetables = inventory.stringColumn("Category").isEqualTo("Fruits & Vegetables");
+
+
+        // Filter inventory by highQuantity
+        Table highQuantityTable = inventory.where(highQuantity.and(fruitsAndVegetables))
+                .sortDescendingOn("Stock_Quantity");
+
+        System.out.println("High quantity fruits and vegetables:");
+        System.out.println(highQuantityTable.selectColumns("Product_Name", "Stock_Quantity").first(10));
+    }
+}
